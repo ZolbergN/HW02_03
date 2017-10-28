@@ -7,7 +7,7 @@
 
 
 using namespace std;
-namespace fs = boost::filesystem;
+namespace fs = boost::;
 
 string EXPLORER_LOG_PATH = "log.txt";
 
