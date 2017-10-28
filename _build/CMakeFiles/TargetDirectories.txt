@@ -1,0 +1,5 @@
+/Users/vladislav/workspace/labs/reports/HW2_02/_build/CMakeFiles/rebuild_cache.dir
+/Users/vladislav/workspace/labs/reports/HW2_02/_build/CMakeFiles/edit_cache.dir
+/Users/vladislav/workspace/labs/reports/HW2_02/_build/CMakeFiles/package_source.dir
+/Users/vladislav/workspace/labs/reports/HW2_02/_build/CMakeFiles/package.dir
+/Users/vladislav/workspace/labs/reports/HW2_02/_build/CMakeFiles/explorer.dir

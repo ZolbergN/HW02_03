@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/vladislav/workspace/labs/reports/HW2_02/main.cpp
+string
+-
+cstring
+-
+iostream
+-
+fstream
+-
+boost/filesystem.hpp
+-
+future
+-
+
