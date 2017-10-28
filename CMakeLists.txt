@@ -10,4 +10,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE_FILES main.cpp)
 add_executable(explorer ${PROJECT_SOURCE_DIR}/${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} stdc++fs)
+target_link_libraries(${PROJECT_NAME} stdc++fs -pthread -std=c++14 -lboost_system -lboost_filesystem)
