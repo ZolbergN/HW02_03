@@ -17,6 +17,13 @@ install:
   # C++14
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+  
+before_script:
+
+
+  - cd ..
+  - cmake -H. -BBuild -DCMAKE_BUILD_TYPE='Debug'
+  - cd Build
 
 script: 
   - qmake
