@@ -82,7 +82,8 @@ void displayDir(string dirAddress) {
 
 int main(int argc, char* argv[])
 {
-
+    argv = argv;
+    printf("hello world. there are %d args\n", argc);
   string ad;
   ad = "example1";
 
