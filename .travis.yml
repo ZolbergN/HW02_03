@@ -12,12 +12,8 @@ before_install:
   # C++14
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-  - export CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Weffc++ -Werror
-
-  - export CONFIG += c++14
-  - export CXXFLAGS += -std=c++14
-  - export CXXFLAGS += -lboost_system
-  - export CXXFLAGS += -lboost_filesystem
+  - export CXXFLAGS = "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Weffc++ -Werror -std=c++14 -lboost_system -lboost_filesystem"
+  
 
 install:
   # C++14
