@@ -21,11 +21,8 @@ install:
 before_script:
 
 
-  - cd ..
-  - cmake -H. -BBuild -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
-  - cd Build
-
 script: 
-  - qmake
-  - make
-  - ./example
+  - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
+  - cmake --build _build
+  - cmake --build _build --target install
+ 
