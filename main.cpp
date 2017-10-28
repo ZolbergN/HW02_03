@@ -16,15 +16,23 @@ double getDirSize(string dirAddress, double size) {
     fs::path dirPath = dirAddress;
     fs::path textDir = dirPath.filename();
     cout << "Finding size of " << textDir << ". Please, wait...\n";
-    for(auto& p: fs::directory_iterator(dirPath)) {
-      //Проверка на то, является ли файл, размер которого мы хотим узнать, директорией
-      if(fs::is_directory(p)) {
-        fs::path nextDir = p;
-        getDirSize(nextDir.string(), size);
-      }
-      else {
-        cout << "Finding size of " << p << ". Please, wait...\n";
-        size = size + file_size(p);
+    if(fs::exists(dirPath)){
+      fs::directory_iterator end_itr;
+      for(fs::directory_iterator dirIte(dirPath); dirIte != end_itr; ++dirIte) {
+        fs::path filePath(dirIte->path());
+        try {
+          if(!fs::is_directory(dirIte->status()))
+          {
+            size = size + fs::file_size(filePath);
+          }
+          else {
+            getDirSize(filePath.string(), size);
+          }
+        }
+        catch(exception& e){
+          cout << e.what() << endl;
+        }
+        //Проверка на то, является ли файл, размер которого мы хотим узнать, директорией
       }
     }
     return size;
@@ -76,7 +84,7 @@ int main(int argc, char* argv[])
 {
 
   string ad;
-  ad = argv[1];
+  ad = "example1";
 
   try {
     displayDir(ad);
