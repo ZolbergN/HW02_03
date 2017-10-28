@@ -21,4 +21,4 @@ install:
 script: 
   - qmake
   - make
-  - ./travis_qmake_gcc_cpp14_boost
+  - ./example
