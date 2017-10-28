@@ -1,1 +1,0 @@
-/usr/bin/g++   -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/explorer.dir/main.cpp.o  -o explorer -pthread -std=c++14 -lboost_system -lboost_filesystem 
