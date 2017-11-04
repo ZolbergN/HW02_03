@@ -52,6 +52,17 @@ string getDirData(string dirAddress) {
     return asctime(gmtime(&ftime));
 }
 
+int putIntoFile(string logPath, string dirName, string dirData, double dirSize) {
+    ofstream stream;
+    stream.open(logPath, ofstream::out | ofstream::app);
+    stream << "Directory name: " << dirName << endl;
+    stream << "Latest modification: " << dirData << endl;
+    stream << "Directory size: " << dirSize / 1000 << " Kb" << endl;
+    stream << "---------------------------------" << endl;
+    stream.close();
+    return 0;
+}
+
 void displayDir(string dirAddress) {
     //Проверка на существование директории
     if(!fs::exists(dirAddress)) {
@@ -62,32 +73,33 @@ void displayDir(string dirAddress) {
       throw runtime_error("ERROR: Type of file - not directory");
     }
 
-    std::future<string> futureDirName = std::async (getDirName,dirAddress);
-    std::future<string> futureDirData = std::async (getDirData,dirAddress);
-    std::future<double> futureDirSize = std::async (getDirSize,dirAddress, 0);
+    std::packaged_task<string(string)> taskName(getDirName);
+    std::packaged_task<string(string)> taskData(getDirData);
+    std::packaged_task<double(string, double)> taskSize(getDirSize);
+    std::packaged_task<int(string, string, string, double)> taskFile(putIntoFile);
 
-    string dirName = futureDirName.get();
-    string dirData = futureDirData.get();
-    double dirSize = futureDirSize.get();
+    std::future<string> dirName = taskName.get_future();
+    std::future<string> dirData = taskData.get_future();
+    std::future<double> dirSize = taskSize.get_future();
+    std::future<int> putInto = taskFile.get_future();
 
-    //Запись данных о директории в файл
-    ofstream fout(EXPLORER_LOG_PATH);
-    fout << "Directory name: " << dirName << endl;
-    fout << "Latest modification: " << dirData << endl;
-    fout << "Directory size: " << dirSize/1000 << " Kb" << endl;
-    fout.close();
+    taskName(dirAddress);
+    taskData(dirAddress);
+    taskSize(dirAddress, 0);
+    taskFile(EXPLORER_LOG_PATH, dirName.get(), dirData.get(), dirSize.get());
 
 }
 
 
 int main(int argc, char* argv[])
 {
-  printf("%d \n", argc);
   string ad;
-  ad = argv[1];
 
   try {
-    displayDir(ad);
+    for(int i = 1; i < argc; i++){
+      ad = argv[i];
+      displayDir(argv[i]);
+    }
   }
   catch(const exception& e) {
     cout << e.what() << endl;

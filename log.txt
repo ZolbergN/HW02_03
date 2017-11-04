@@ -1,4 +1,25 @@
+Directory name: artifacts
+Latest modification: Thu Nov  2 23:27:35 2017
+
+Directory size: 43.362 Kb
+---------------------------------
 Directory name: example1
-Latest modification: Sat Oct 28 12:12:28 2017
+Latest modification: Thu Nov  2 23:27:35 2017
 
 Directory size: 0.01 Kb
+---------------------------------
+Directory name: artifacts
+Latest modification: Thu Nov  2 23:27:35 2017
+
+Directory size: 43.362 Kb
+---------------------------------
+Directory name: example1
+Latest modification: Thu Nov  2 23:27:35 2017
+
+Directory size: 10 Kb
+---------------------------------
+Directory name: example1
+Latest modification: Thu Nov  2 23:27:35 2017
+
+Directory size: 0.01 Kb
+---------------------------------
