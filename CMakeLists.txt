@@ -36,8 +36,12 @@ install(FILES main.cpp DESTINATION bin)
 
 if(BUILD_TESTS)
 enable_testing()
+hunter_add_package(Boost COMPONENTS system filesystem)
+find_package(Boost CONFIG REQUIRED system filesystem)
+hunter_add_package(Catch)
+find_package(Catch CONFIG REQUIRED)
 file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
+add_executable(check ${${PROJECT_NAME}_TEST_SOURCES} -std=c++14 Catch::Catch Boost::system Boost::filesystem)
 
 add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes")
 endif()
