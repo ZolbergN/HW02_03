@@ -5,7 +5,7 @@ set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_TESTS "Build tests" ON)
 
 include(cmake/HunterGate.cmake)
 
