@@ -29,7 +29,7 @@ hunter_add_package(Catch)
 find_package(Catch CONFIG REQUIRED)
 
 add_executable(explorer ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
-target_link_libraries(${PROJECT_NAME} -pthread -std=c++14 Catch::Catch Boost::system Boost::filesystem)
+target_link_libraries(${PROJECT_NAME} -pthread Catch::Catch Boost::system Boost::filesystem)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/example1/ DESTINATION example1)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 install(FILES main.cpp DESTINATION bin)
