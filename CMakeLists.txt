@@ -41,8 +41,8 @@ find_package(Boost CONFIG REQUIRED system filesystem)
 hunter_add_package(Catch)
 find_package(Catch CONFIG REQUIRED)
 file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-add_executable(check ${${PROJECT_NAME}_TEST_SOURCES} -std=c++14 Catch::Catch Boost::system Boost::filesystem)
-
+add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
+target_link_libraries(check ${PROJECT_NAME}  -std=c++14 Catch::Catch Boost::system Boost::filesystem)
 add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes")
 endif()
 
