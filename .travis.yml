@@ -2,6 +2,16 @@ sudo: true
 language: cpp
 compiler: gcc
 
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+      
 script:
- - cmake -H. -B_build
- - cmake --build _build
+ - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
+- cmake --build _build
+- cmake --build _build --target install
+- cmake --build _build --target test
