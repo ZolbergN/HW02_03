@@ -10,7 +10,7 @@ addons:
       - cmake
       - cmake-data
       
-script:
-- cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=OFF
+script
+- cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 - cmake --build _build
 
