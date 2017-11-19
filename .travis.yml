@@ -12,15 +12,8 @@ addons:
       
 script:
 - export EXPLORER_LOG_PATH="log.txt"
-- cmake -H. -B_build 
-- cmake --build _build
-- ls
-- cd _build
-- ls
-- cd ..
 - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 - cmake --build _build
-- ls
 - cd _build
 - ls
 - cd ..
