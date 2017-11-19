@@ -57,7 +57,7 @@ bool print_name(const fs::path& p) {
   stream.open(getenv("EXPLORER_LOG_PATH"), ofstream::out | ofstream::app);
   stream << "Directory name: " << getDirName(dirPath) << endl;
   stream.close();
-  return 0;
+  return true;
 }
 
 bool print_data(const fs::path& p) {
@@ -66,7 +66,7 @@ bool print_data(const fs::path& p) {
   stream.open(getenv("EXPLORER_LOG_PATH"), ofstream::out | ofstream::app);
   stream << "Directory data: " << getDirData(dirPath) << endl;
   stream.close();
-  return 0;
+  return true;
 }
 
 bool print_size(const fs::path& p) {
@@ -76,7 +76,7 @@ bool print_size(const fs::path& p) {
   stream << "Directory size: " << getDirSize(dirPath, 0) / 1000 << " Kb" << endl;
   stream << "---------------------------------" << endl;
   stream.close();
-  return 0;
+  return true;
 }
 
 
