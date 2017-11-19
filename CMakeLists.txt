@@ -28,8 +28,8 @@ find_package(Boost CONFIG REQUIRED system filesystem)
 hunter_add_package(Catch)
 find_package(Catch CONFIG REQUIRED)
 
-add_executable(ex ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
-target_link_libraries(ex -pthread Catch::Catch Boost::system Boost::filesystem)
+add_executable(explorer ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+target_link_libraries(explorer -pthread Catch::Catch Boost::system Boost::filesystem)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/example1/ DESTINATION example1)
 install(FILES main.cpp DESTINATION bin)
 
