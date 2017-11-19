@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     for(auto & p : results) {
       auto& result = p.second;
       auto is_ok = result.get();
-      if (!is_ok == 0) {
+      if (!is_ok) {
         cerr << "ERROR: FINDING INFORMATION OF DIRECTORY: " << p.first << endl;
       }
     }
