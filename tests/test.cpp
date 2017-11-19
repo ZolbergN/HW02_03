@@ -5,6 +5,6 @@ TEST_CASE("Check functions", "[explorer]") {
 	{
 		fs::path Path = "dir";
 		bool ok = print_info(Path);
-		REQUIRE( ok == false);
+		REQUIRE( ok == true);
 	}
 }
