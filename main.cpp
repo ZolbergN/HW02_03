@@ -7,7 +7,7 @@
 #include <map>
 #include <utility>
 #include <thread>
-#include <main.hpp>
+#include "main.hpp"
 
 int main(int argc, char* argv[]) {
   try {
