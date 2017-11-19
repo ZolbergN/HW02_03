@@ -3,7 +3,7 @@
 TEST_CASE("Check functions", "[explorer]") {
 	SECTION("Check INIT")
 	{
-		fs::path Path = "dir";
+		fs::path Path("dir");
 		bool ok = print_data(Path);
 		REQUIRE( ok == true);
 	}
