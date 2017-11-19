@@ -37,7 +37,7 @@ if(BUILD_TESTS)
 enable_testing()
 file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
 add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
-target_link_libraries(check ${PROJECT_NAME} Catch::Catch Boost::system Boost::filesystem)
+target_link_libraries(check Catch::Catch Boost::system Boost::filesystem)
 add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes")
 endif()
 
