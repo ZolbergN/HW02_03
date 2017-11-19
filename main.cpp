@@ -1,12 +1,3 @@
-#include <string>
-#include <cstring>
-#include <iostream>
-#include <fstream>
-#include <boost/filesystem.hpp>
-#include <future>
-#include <map>
-#include <utility>
-#include <thread>
 #include "main.hpp"
 
 int main(int argc, char* argv[]) {
