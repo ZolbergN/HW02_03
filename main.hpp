@@ -1,5 +1,5 @@
-#ifndef MAIN_HPP
-#define MAIN_HPP
+#ifndef EXPLORER_HPP
+#define EXPLORER_HPP
 
 #include <string>
 #include <cstring>
