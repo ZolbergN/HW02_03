@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch.hpp>
 
 TEST_CASE("Check functions", "[explorer]") {
 	SECTION("Check INIT")
