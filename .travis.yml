@@ -16,6 +16,8 @@ script:
 - cmake --build _build
 - cd _build
 - ls
+- ./explorer CMakeFiles
+- ls
 - cd ..
 - cmake --build _build --target install
 - cd _build
