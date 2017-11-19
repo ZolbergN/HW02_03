@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include <explorer.hpp>
+#include "./main.cpp"
 TEST_CASE("Check functions", "[explorer]") {
 	SECTION("Check INIT")
 	{
