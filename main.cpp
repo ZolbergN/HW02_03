@@ -4,16 +4,16 @@
 #include <fstream>
 #include <boost/filesystem.hpp>
 #include <future>
-
+#include <map>
+#include <utility>
+#include <thread>
 
 using namespace std;
 namespace fs = boost::filesystem;
 
-string EXPLORER_LOG_PATH = "log.txt";
 
-//Подсчет размера директории
-double getDirSize(string dirAddress, double size) {
-    fs::path dirPath = dirAddress;
+double getDirSize(const fs::path& p, double size) {
+    fs::path dirPath = p;
     fs::path textDir = dirPath.filename();
     cout << "Finding size of " << textDir << ". Please, wait...\n";
     if(fs::exists(dirPath)){
@@ -32,73 +32,81 @@ double getDirSize(string dirAddress, double size) {
         catch(exception& e){
           cout << e.what() << endl;
         }
-        //Проверка на то, является ли файл, размер которого мы хотим узнать, директорией
       }
     }
     return size;
 }
 
-string getDirName(string dirAddress) {
+string getDirName(const fs::path& p) {
     cout << "Finding name of file or directory. Please, wait...\n" << endl;
-    fs::path dirPath = dirAddress;
+    fs::path dirPath = p;
     fs::path textDir = dirPath.filename();
     return textDir.string();
 }
 
-string getDirData(string dirAddress) {
+string getDirData(const fs::path& p) {
     cout << "Finding latest modification data. Please, wait...\n" << endl;
-    fs::path dirPath = dirAddress;
+    fs::path dirPath = p;
     std::time_t ftime = fs::last_write_time(dirPath);
     return asctime(gmtime(&ftime));
 }
 
-int putIntoFile(string logPath, string dirName, string dirData, double dirSize) {
-    ofstream stream;
-    stream.open(logPath, ofstream::out | ofstream::app);
-    stream << "Directory name: " << dirName << endl;
-    stream << "Latest modification: " << dirData << endl;
-    stream << "Directory size: " << dirSize / 1000 << " Kb" << endl;
-    stream << "---------------------------------" << endl;
-    stream.close();
-    return 0;
+bool print_name(const fs::path& p) {
+  fs::path dirPath = p;
+  ofstream stream;
+  stream.open(getenv("EXPLORER_LOG_PATH"), ofstream::out | ofstream::app);
+  stream << "Directory name: " << getDirName(dirPath) << endl;
+  stream.close();
+  return 0;
 }
 
-void displayDir(string dirAddress) {
-    //Проверка на существование директории
-    if(!fs::exists(dirAddress)) {
-      throw runtime_error("ERROR: We don't have such directory");
-    }
-    //Проверка на то, является ли файл директорией
-    if(!fs::is_directory(dirAddress)) {
-      throw runtime_error("ERROR: Type of file - not directory");
-    }
+bool print_data(const fs::path& p) {
+  fs::path dirPath = p;
+  ofstream stream;
+  stream.open(getenv("EXPLORER_LOG_PATH"), ofstream::out | ofstream::app);
+  stream << "Directory data: " << getDirData(dirPath) << endl;
+  stream.close();
+  return 0;
+}
 
-    std::packaged_task<string(string)> taskName(getDirName);
-    std::packaged_task<string(string)> taskData(getDirData);
-    std::packaged_task<double(string, double)> taskSize(getDirSize);
-    std::packaged_task<int(string, string, string, double)> taskFile(putIntoFile);
-
-    std::future<string> dirName = taskName.get_future();
-    std::future<string> dirData = taskData.get_future();
-    std::future<double> dirSize = taskSize.get_future();
-    std::future<int> putInto = taskFile.get_future();
-
-    taskName(dirAddress);
-    taskData(dirAddress);
-    taskSize(dirAddress, 0);
-    taskFile(EXPLORER_LOG_PATH, dirName.get(), dirData.get(), dirSize.get());
-
+bool print_size(const fs::path& p) {
+  fs::path dirPath = p;
+  ofstream stream;
+  stream.open(getenv("EXPLORER_LOG_PATH"), ofstream::out | ofstream::app);
+  stream << "Directory size: " << getDirSize(dirPath, 0) / 1000 << " Kb" << endl;
+  stream << "---------------------------------" << endl;
+  stream.close();
+  return 0;
 }
 
 
-int main(int argc, char* argv[])
-{
-  string ad;
+bool print_info(const fs::path& p) {
+  bool is_ok = true;
+  is_ok &= print_name(p);
+  is_ok &= print_data(p);
+  is_ok &= print_size(p);
+  return is_ok;
+}
 
+
+int main(int argc, char* argv[]) {
   try {
-    for(int i = 1; i < argc; i++){
-      ad = argv[i];
-      displayDir(argv[i]);
+    map<fs::path, future<bool>> results;
+    for (int i = 1; i < argc; ++i) {
+	    fs::path Path = argv[i];
+      auto task = packaged_task<bool()>{ bind(print_info, Path) };
+	    auto result = task.get_future();
+	    thread task_td(move(task));
+      task_td.join();
+	    results.emplace(Path, move(result));
+    }
+
+    for(auto & p : results) {
+      auto& result = p.second;
+      auto is_ok = result.get();
+      if (!is_ok == 0) {
+        cerr << "ERROR: FINDING INFORMATION OF DIRECTORY: " << p.first << endl;
+      }
     }
   }
   catch(const exception& e) {
