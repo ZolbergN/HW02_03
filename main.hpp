@@ -1,3 +1,6 @@
+#ifndef MAIN_HPP
+#define MAIN_HPP
+
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -88,7 +91,6 @@ bool print_info(const fs::path& p) {
   return is_ok;
 }
 
-
 int main(int argc, char* argv[]) {
   try {
     map<fs::path, future<bool>> results;
@@ -113,3 +115,5 @@ int main(int argc, char* argv[]) {
     cout << e.what() << endl;
   }
 }
+
+#endif
