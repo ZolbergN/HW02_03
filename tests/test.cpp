@@ -5,6 +5,7 @@ TEST_CASE("Check functions", "[explorer]") {
 	{
 		fs::path Path("dir");
 		bool ok = print_data(Path);
+		cout << ok << endl;
 		REQUIRE( ok == true);
 	}
 }
