@@ -1,6 +1,3 @@
-#ifndef EXPLORER_HPP
-#define EXPLORER_HPP
-
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -116,4 +113,4 @@ int main(int argc, char* argv[]) {
   }
 }
 
-#endif
+
